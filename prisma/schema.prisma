@@ -1,0 +1,138 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Bairro{
+  idBairro              Int           @id @default(autoincrement()) @unique
+  nomeBairro            String
+  aluno                 Aluno []
+}
+
+model Cidade{
+  idCidade              Int           @id @default(autoincrement()) @unique
+  nomeCidade            String
+  aluno                 Aluno []
+}
+
+model Estado{
+  idEstado              Int           @id @default(autoincrement()) @unique
+  nomeEstado            String
+  siglaEstado           String
+  aluno                 Aluno []
+}
+
+model Rua{
+  idRua                 Int           @id @default(autoincrement()) @unique
+  nomeRua               String
+  aluno                 Aluno []
+}
+
+model Departamento {
+  idDepartamento        Int             @id @default(autoincrement()) @unique
+  nomeDepartamento      String
+  cursos                Curso []
+  disciplinas           Disciplina []
+}
+
+model Curso {
+  idCurso               Int             @id @default(autoincrement()) @unique
+  nomeCurso             String
+  departamento          Departamento    @relation(fields: [idDepartamento], references: [idDepartamento])
+  idDepartamento        Int
+  aluno                 Aluno []
+  disciplinas           Disciplina []
+}
+model Aluno {
+  ra                    String        @id 
+  cpf                   String
+  nomeAluno             String
+  courseId              Int
+  sobrenomeAluno        String
+  sexoAluno             Int
+  emailAluno            String
+  telefoneAluno         Int
+  numeroRua             String
+  complementoMoradia    String
+  cep                   String
+  estado                Estado          @relation(fields: [idEstado], references: [idEstado])
+  idEstado              Int
+  cidade                Cidade          @relation(fields: [idCidade], references: [idCidade])
+  idCidade              Int
+  bairro                Bairro          @relation(fields: [idBairro], references: [idBairro])
+  idBairro              Int
+  rua                   Rua             @relation(fields: [idRua],    references: [idRua])
+  idRua                 Int
+  curso                 Curso           @relation(fields: [idCurso], references: [idCurso])
+  idCurso               Int
+  matricula             Matricula []
+  boletim               Boletim []
+  historico             Historico []
+}
+
+
+model Disciplina {
+  idDisciplina          Int             @id @default(autoincrement()) @unique
+  nomeDisciplina        String
+  numeroTurma           String          @default("0")
+  cargaHoraria          String          @default("0")
+  descricaoCurricular   String   
+  semestre              String
+  departamento          Departamento    @relation(fields: [idDepartamento], references: [idDepartamento])
+  idDepartamento        Int
+  curso                 Curso           @relation(fields: [idCurso],        references: [idCurso])
+  idCurso               Int
+  matricula             Matricula []
+}
+
+model Matricula{
+  idMatricula           Int             @id @default(autoincrement()) @unique
+  frequencia            Float           @default(0)
+  nota1                 Float           @default(0)
+  nota2                 Float           @default(0)
+  media                 Float           @default(0)
+  periodoSemestral      DateTime        @default(now())
+  disciplina            Disciplina      @relation(fields: [idDisciplina], references: [idDisciplina])
+  idDisciplina          Int
+  aluno                 Aluno           @relation(fields: [ra], references: [ra])
+  ra                    String
+  boletimDisciplinas    BoletimDisciplinas []
+  historicoDisciplinas  HistoricoDisciplinas []
+}
+
+model Boletim{
+  idBoletim             Int             @id @default(autoincrement()) @unique
+  aluno                 Aluno           @relation(fields: [ra], references: [ra])
+  ra                    String
+  boletimDisciplinas    BoletimDisciplinas []
+}
+
+model BoletimDisciplinas{
+  boletim               Boletim         @relation(fields: [idBoletim], references: [idBoletim])
+  idBoletim             Int 
+  matricula             Matricula       @relation(fields: [idMatricula], references: [idMatricula])
+  idMatricula           Int 
+  @@id([idBoletim, idMatricula]) // Define a chave primária composta com as duas colunas
+}
+
+model Historico{
+  idHistorico             Int           @id @default(autoincrement()) @unique
+  aluno                 Aluno           @relation(fields: [ra], references: [ra])
+  ra                    String
+  historicoDisciplinas    HistoricoDisciplinas []
+}
+
+model HistoricoDisciplinas{
+  historico               Historico     @relation(fields: [idHistorico], references: [idHistorico])
+  idHistorico             Int 
+  matricula             Matricula       @relation(fields: [idMatricula], references: [idMatricula])
+  idMatricula           Int 
+  @@id([idHistorico, idMatricula]) // Define a chave primária composta com as duas colunas
+}
