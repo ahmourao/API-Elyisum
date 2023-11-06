@@ -57,7 +57,7 @@ model Curso {
   disciplinas           Disciplina []
 }
 model Aluno {
-  ra                    String        @id 
+  ra                    Int             @id @default(autoincrement()) @unique
   cpf                   String
   nomeAluno             String
   courseId              Int
@@ -78,6 +78,8 @@ model Aluno {
   idRua                 Int
   curso                 Curso           @relation(fields: [idCurso], references: [idCurso])
   idCurso               Int
+  login                 Login?           @relation(fields: [idLogin], references: [idLogin])
+  idLogin               Int?
   matricula             Matricula []
   boletim               Boletim []
   historico             Historico []
@@ -108,7 +110,7 @@ model Matricula{
   disciplina            Disciplina      @relation(fields: [idDisciplina], references: [idDisciplina])
   idDisciplina          Int
   aluno                 Aluno           @relation(fields: [ra], references: [ra])
-  ra                    String
+  ra                    Int
   boletimDisciplinas    BoletimDisciplinas []
   historicoDisciplinas  HistoricoDisciplinas []
 }
@@ -116,7 +118,7 @@ model Matricula{
 model Boletim{
   idBoletim             Int             @id @default(autoincrement()) @unique
   aluno                 Aluno           @relation(fields: [ra], references: [ra])
-  ra                    String
+  ra                    Int
   boletimDisciplinas    BoletimDisciplinas []
 }
 
@@ -129,16 +131,23 @@ model BoletimDisciplinas{
 }
 
 model Historico{
-  idHistorico             Int           @id @default(autoincrement()) @unique
+  idHistorico           Int           @id @default(autoincrement()) @unique
   aluno                 Aluno           @relation(fields: [ra], references: [ra])
-  ra                    String
-  historicoDisciplinas    HistoricoDisciplinas []
+  ra                    Int
+  historicoDisciplinas  HistoricoDisciplinas []
 }
 
 model HistoricoDisciplinas{
-  historico               Historico     @relation(fields: [idHistorico], references: [idHistorico])
-  idHistorico             Int 
+  historico             Historico     @relation(fields: [idHistorico], references: [idHistorico])
+  idHistorico           Int 
   matricula             Matricula       @relation(fields: [idMatricula], references: [idMatricula])
   idMatricula           Int 
   @@id([idHistorico, idMatricula]) // Define a chave primária composta com as duas colunas
+}
+
+model Login{
+  idLogin     Int @id @default(autoincrement()) @unique
+  usuario     Int?        @unique
+  senha       String?
+  aluno       Aluno []
 }
