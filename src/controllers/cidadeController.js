@@ -1,5 +1,5 @@
 // cidadeController.js - Controller
-import { createCidadeM, getAllCidadesM, updateAllCidadeM, getSingleCidadeM, removeCidadeM} from '../models/cidade.js';
+import { createCidadeM, getAllCidadesM, updateCidadeM, getOneCidadeM, removeCidadeM} from '../models/cidade.js';
 import chalk from 'chalk';
 
 //Criar um registro
@@ -14,6 +14,7 @@ export async function createCidade(req, res) {
         res.status(500).json({ error: 'Erro ao criar o cidade' });
     }
 }
+
 //Listar tudo
 export async function getAllCidades(req, res) {
     try {
@@ -23,12 +24,13 @@ export async function getAllCidades(req, res) {
         res.status(500).json({ error: 'Erro em buscar as cidades' });
     }
 }
+
 //listar um
-export async function getSingleCidade(req, res) {
+export async function getOneCidade(req, res) {
     const id = parseInt(req.query.id);
     try {
         console.log(chalk.white.bgGray("Sending request getSingleCidade... "));
-        const cidade = await getSingleCidadeM(id);
+        const cidade = await getOneCidadeM(id);
         res.json(cidade);
     } catch (error) {
         console.log(chalk.black.bgRed("Request fail"));
@@ -38,12 +40,12 @@ export async function getSingleCidade(req, res) {
 }
 
 //Atualizar um registro
-export async function updateAllCidade(req, res) {
+export async function updateCidade(req, res) {
     const id = parseInt(req.query.id);
     const nomeCidade = req.query.nomeCidade;
     const idEstado = parseInt(req.query.idEstado);
     try {
-        const cidade = await updateAllCidadeM(id, nomeCidade, idEstado);
+        const cidade = await updateCidadeM(id, nomeCidade, idEstado);
         res.json(cidade);
     } catch (error) {
         res.status(500).json({ error: 'Erro em atualizar a cidade' });

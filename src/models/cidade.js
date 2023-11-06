@@ -25,7 +25,7 @@ export
 
 export
     //Listar um
-    async function getSingleCidadeM(id) {
+    async function getOneCidadeM(id) {
     return prisma.cidade.findUnique({
         where: { 
             idCidade: id
@@ -35,7 +35,7 @@ export
 
 export
     //Atualizar um registro
-    async function updateAllCidadeM(id, nomeCidade, idEstado) {
+    async function updateCidadeM(id, nomeCidade, idEstado) {
     return prisma.cidade.update({
         where: { 
             idCidade: id,
