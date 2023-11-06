@@ -1,10 +1,10 @@
-// BairroController.js - Controller
-import { createBairroM, getAllBairrosM, getSingleNameBairroM, getSingleBairroM} from '../models/bairro.js';
+// bairroController.js - Controller
+import { createBairroM, getAllBairrosM, getOneNameBairroM, getOneBairroM, updateBairroM, removeBairroM} from '../models/bairro.js';
 
 import chalk from 'chalk';
 
 
-//Criar um bairro
+//Criar um registro
 export async function createBairro(req, res) {
     const data = req.body;
     //Conteúdo recebido do cliente 
@@ -16,7 +16,7 @@ export async function createBairro(req, res) {
     }
 }
 
-//Listar todos os bairros
+//Listar todos os registros
 export async function getAllBairros(req, res) {
     try {
         const Bairros = await getAllBairrosM();
@@ -26,12 +26,12 @@ export async function getAllBairros(req, res) {
     }
 }
 
-//listar um pelo id
-export async function getSingleBairro(req, res) {
+//Buscar um registro pelo ID
+export async function getOneBairro(req, res) {
     const id = parseInt(req.query.id);
     try {
-        console.log(chalk.white.bgGray("Sending request getSingleBairro... "));
-        const Bairro = await getSingleBairroM(id);
+        console.log(chalk.white.bgGray("Sending request getOneBairro... "));
+        const Bairro = await getOneBairroM(id);
         res.json(Bairro);
     } catch (error) {
         console.log(chalk.black.bgRed("Request fail"));
@@ -40,16 +40,42 @@ export async function getSingleBairro(req, res) {
 
 }
 
-//listar um pelo nome
-export async function getSingleNameBairro(req, res) {
+//Buscar um registro pelo nome
+export async function getOneNameBairro(req, res) {
     const nome = req.query.nome;
     try {
-        console.log(chalk.white.bgGray("Sending request getSingleNameBairro... "));
-        const Bairro = await getSingleNameBairroM(nome);
+        console.log(chalk.white.bgGray("Sending request getOneNameBairro... "));
+        const Bairro = await getOneNameBairroM(nome);
         res.json(Bairro);
     } catch (error) {
         console.log(chalk.black.bgRed("Request fail"));
         res.status(500).json({ error: 'Erro em buscar uma única Bairro' });
+    }
+
+}
+
+//Atualizar um registro
+export async function updateBairro(req, res) {
+    const id = parseInt(req.query.id);
+    const nomeBairro = req.query.nomeBairro;
+    const idCidade = parseInt(req.query.idCidade);
+    try {
+        const Bairro = await updateBairroM(id, nomeBairro, idCidade);
+        res.json(Bairro);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro em atualizar o Bairro' });
+    }
+
+}
+
+//Excluir um registro
+export async function removeBairro(req, res) {
+    const id = parseInt(req.query.id);
+    try {
+        const Bairro = await removeBairroM(id);
+        res.json(Bairro);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro em deletar um Bairro' });
     }
 
 }
