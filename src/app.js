@@ -8,7 +8,7 @@ import cursoRoutes from './routes/cursoRoutes.js';
 import departamentoRoutes from './routes/departamentoRoutes.js';
 import disciplinaRoutes from './routes/disciplinaRoutes.js';
 import estadoRoutes from './routes/estadoRoutes.js';
-import cidadeRoutes from './routes/cidadoRoutes.js';
+import cidadeRoutes from './routes/cidadeRoutes.js';
 import bairroRoutes from './routes/bairroRoutes.js';
 import ruaRoutes from './routes/ruaRoutes.js';
 

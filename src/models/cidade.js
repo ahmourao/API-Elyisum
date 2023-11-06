@@ -1,21 +1,22 @@
 // cidade.js - Model
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
-
 export
-    //Create
+    //Criar um registro
     async function createCidadeM(data) {
     return prisma.Cidade.create({ data });
 }
 
 export
-    //Listar
-    async function getCidadesM() {
+    //Listar tudo
+    async function getAllCidadesM() {
     return prisma.Cidade.findMany({
-        include: {
+        select: {
+            idCidade: true, 
+            nomeCidade: true, 
             estado: {
                 select: {
-                    nomeEstado: true, // Selecionar apenas o atributo 'nome' da tabela Estado
+                    nomeEstado: true,
                 }
             }
         }
@@ -23,10 +24,35 @@ export
 }
 
 export
-    //Listar
-    async function updateCidadeM(id, data) {
+    //Listar um
+    async function getSingleCidadeM(id) {
+    return prisma.cidade.findUnique({
+        where: { 
+            idCidade: id
+        }, 
+    });
+}
+
+export
+    //Atualizar um registro
+    async function updateAllCidadeM(id, nomeCidade, idEstado) {
     return prisma.cidade.update({
-        where: { id },
-        data,
+        where: { 
+            idCidade: id,
+        },
+        data: {
+            nomeCidade: nomeCidade, 
+            idEstado: idEstado,
+        }
+    });
+}
+
+export
+    //Excluir um registro
+    async function removeCidadeM(id) {
+    return prisma.cidade.delete({
+        where: { 
+            idCidade: id,
+        },
     });
 }

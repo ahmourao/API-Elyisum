@@ -1,33 +1,66 @@
-// CidadeController.js - Controller
-import { createCidadeM, getCidadesM, updateCidadeM } from '../models/cidade.js';
+// cidadeController.js - Controller
+import { createCidadeM, getAllCidadesM, updateAllCidadeM, getSingleCidadeM, removeCidadeM} from '../models/cidade.js';
+import chalk from 'chalk';
 
-export async function createCidadeCT(req, res) {
-    const CidadeData = req.body;
+//Criar um registro
+export async function createCidade(req, res) {
+    const data = req.body;
     //Conteúdo recebido do cliente 
     try {
-        const Cidade = await createCidadeM(CidadeData);
+        console.log(chalk.white.bgGray("Sending request createCidade"));
+        const Cidade = await createCidadeM(data);
         res.json(Cidade);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao criar o cidade' });
     }
 }
-export async function getCidadesCT(req, res) {
+//Listar tudo
+export async function getAllCidades(req, res) {
     try {
-        const Cidades = await getCidadesM();
+        const Cidades = await getAllCidadesM();
         res.json(Cidades);
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao buscar os cidades' });
+        res.status(500).json({ error: 'Erro em buscar as cidades' });
     }
 }
-
-export async function updateCidadeCT(req, res) {
-    const { id } = req.params;
-    const cidadeData = req.body;
+//listar um
+export async function getSingleCidade(req, res) {
+    const id = parseInt(req.query.id);
     try {
-        const updatedCidade = await updateCidadeM(id, cidadeData);
-        res.json(updatedCidade);
+        console.log(chalk.white.bgGray("Sending request getSingleCidade... "));
+        const cidade = await getSingleCidadeM(id);
+        res.json(cidade);
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao atualizar o curso' });
+        console.log(chalk.black.bgRed("Request fail"));
+        res.status(500).json({ error: 'Erro em buscar uma única cidade' });
     }
 
 }
+
+//Atualizar um registro
+export async function updateAllCidade(req, res) {
+    const id = parseInt(req.query.id);
+    const nomeCidade = req.query.nomeCidade;
+    const idEstado = parseInt(req.query.idEstado);
+    try {
+        const cidade = await updateAllCidadeM(id, nomeCidade, idEstado);
+        res.json(cidade);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro em atualizar a cidade' });
+    }
+
+}
+
+//Excluir um registro
+export async function removeCidade(req, res) {
+    const id = parseInt(req.query.id);
+    try {
+        const cidade = await removeCidadeM(id);
+        res.json(cidade);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro em deletar a cidade' });
+    }
+
+}
+
+
