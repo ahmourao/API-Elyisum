@@ -13,13 +13,18 @@ datasource db {
 model Bairro{
   idBairro              Int           @id @default(autoincrement()) @unique
   nomeBairro            String
+  cidade                Cidade        @relation(fields: [idCidade], references: [idCidade])
+  idCidade              Int
   aluno                 Aluno []
 }
 
 model Cidade{
   idCidade              Int           @id @default(autoincrement()) @unique
   nomeCidade            String
+  estado                Estado        @relation(fields: [idEstado], references: [idEstado])
+  idEstado              Int
   aluno                 Aluno []
+  bairro                Bairro []
 }
 
 model Estado{
@@ -27,6 +32,7 @@ model Estado{
   nomeEstado            String
   siglaEstado           String
   aluno                 Aluno []
+  cidade                Cidade []
 }
 
 model Rua{

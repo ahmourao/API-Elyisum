@@ -3,7 +3,7 @@ import { Router } from 'express';
 const router = Router();
 import { createDepartamentoCT, getDepartamentosCT } from '../controllers/departamentoController.js';
 
-router.post('/departamentos', createDepartamentoCT);
-router.get('/departamentos', getDepartamentosCT);
+router.post('/departamento', createDepartamentoCT);
+router.get('/departamento', getDepartamentosCT);
 
 export default router;
