@@ -9,13 +9,18 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-
-model Bairro{
-  idBairro              Int           @id @default(autoincrement()) @unique
-  nomeBairro            String
-  cidade                Cidade?        @relation(fields: [idCidade], references: [idCidade])
-  idCidade              Int?
+model Rua{
+  idRua                 Int           @id @default(autoincrement()) @unique
+  nomeRua               String
   aluno                 Aluno []
+}
+
+model Estado{
+  idEstado              Int           @id @default(autoincrement()) @unique
+  nomeEstado            String
+  siglaEstado           String
+  aluno                 Aluno []
+  cidade                Cidade []
 }
 
 model Cidade{
@@ -27,19 +32,14 @@ model Cidade{
   bairro                Bairro []
 }
 
-model Estado{
-  idEstado              Int           @id @default(autoincrement()) @unique
-  nomeEstado            String
-  siglaEstado           String
+model Bairro{
+  idBairro              Int           @id @default(autoincrement()) @unique
+  nomeBairro            String
+  cidade                Cidade?        @relation(fields: [idCidade], references: [idCidade])
+  idCidade              Int?
   aluno                 Aluno []
-  cidade                Cidade []
 }
 
-model Rua{
-  idRua                 Int           @id @default(autoincrement()) @unique
-  nomeRua               String
-  aluno                 Aluno []
-}
 
 model Departamento {
   idDepartamento        Int             @id @default(autoincrement()) @unique

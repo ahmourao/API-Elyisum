@@ -13,7 +13,7 @@ export async function createEstado(req, res) {
     }
 }
 
-//Listar tudo
+//Listar todos os registros
 export async function getAllEstados(req, res) {
     try {
         const Estados = await getAllEstadosM();
@@ -23,7 +23,7 @@ export async function getAllEstados(req, res) {
     }
 }
 
-//listar um
+//Buscar um registro por ID
 export async function getOneEstado(req, res) {
     const id = parseInt(req.query.id);
     try {
