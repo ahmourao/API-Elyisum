@@ -2,9 +2,12 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
+//create
 export async function createBairroM(data) {
     return prisma.Bairro.create({ data });
 }
+
+//listar tudo
 export async function getAllBairrosM() {
     return prisma.Bairro.findMany({
         select: {

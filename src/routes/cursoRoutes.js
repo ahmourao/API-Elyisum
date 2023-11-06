@@ -8,4 +8,5 @@ router.get('/curso', getAllCursos);
 router.get('/curso/id', getOneCurso);
 router.put('/curso', updateCurso); // tem como parametro o id, nomeCurso e idDepartamento
 router.delete('/curso', removeCurso); //tem como parametro o id.
+
 export default router;

@@ -1,5 +1,5 @@
 // cursoController.js - Controller
-import { createCursoM, getCursosM, getOneCursoM, updateCursoM, removeCursoM} from '../models/curso.js';
+import { createCursoM, getAllCursosM, getOneCursoM, updateCursoM, removeCursoM} from '../models/curso.js';
 
 //Criar um registro
 export async function createCurso(req, res) {
@@ -16,7 +16,7 @@ export async function createCurso(req, res) {
 //Listar todos os registros
 export async function getAllCursos(req, res) {
     try {
-        const cursos = await getCursosM();
+        const cursos = await getAllCursosM();
         res.json(cursos);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar os cursos' });

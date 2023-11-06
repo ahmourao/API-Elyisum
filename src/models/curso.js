@@ -7,9 +7,10 @@ export
     async function createCursoM(data) {
     return prisma.Curso.create({ data });
 }
+
 export
     //Listar
-    async function getCursosM() {
+    async function getAllCursosM() {
     return prisma.Curso.findMany();
 }
 
