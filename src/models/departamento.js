@@ -9,6 +9,39 @@ export
 }
 export
     //Listar
-    async function getDepartamentosaM() {
+    async function getAllDepartamentosaM() {
     return prisma.departamento.findMany();
+}
+
+export
+    //Read one
+    async function getOneDepartamentoM(id) {
+    return prisma.Departamento.findUnique({
+        where: {
+            idDepartamento: id
+        },
+    });
+}
+
+export
+    //Atualizar um registro
+    async function updateDepartamentoM(id, nomeDepartamento) {
+    return prisma.Departamento.update({
+        where: {
+            idDepartamento: id,
+        },
+        data: {
+            nomeDepartamento: nomeDepartamento,
+        },
+    });
+}
+
+export
+    //Excluir um registro
+    async function removeDepartamentoM(id) {
+    return prisma.Departamento.delete({
+        where: {
+            idDepartamento: id,
+        },
+    });
 }

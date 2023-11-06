@@ -1,5 +1,5 @@
 // ruaController.js - Controller
-import { createRuaM, getAllRuasM, getOneRuaM, updateRuaM, removeRuaM } from '../models/rua.js';
+import { createRuaM, getAllRuasM, getOneRuaM, updateRuaM, removeRuaM,  } from '../models/rua.js';
 
 //Criar um registro
 export async function createRua(req, res) {
