@@ -12,6 +12,7 @@ export async function createDepartamento(req, res) {
     }
 }
 
+//Listar todos os registro
 export async function getAllDepartamentos(req, res) {
     try {
         const departamentos = await getAllDepartamentosaM();
