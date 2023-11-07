@@ -81,7 +81,7 @@ model Aluno {
   idLogin               Int?
   matricula             Matricula []
   historico             Historico?      @relation(fields: [idHistorico], references: [idHistorico])
-  idHistorico           Int 
+  idHistorico           Int?
 }
 
 

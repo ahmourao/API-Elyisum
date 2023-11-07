@@ -20,7 +20,7 @@ export
     async function createAlunoM(data) {
     const aluno = await prisma.Aluno.create({ data });
     const newPassword = generateRandomPassword(5);
-    const login = await prisma.login.create({
+    const login = await prisma.Login.create({
         data: {
             usuario: aluno.ra,
             senha: newPassword,
