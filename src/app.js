@@ -11,6 +11,8 @@ import estadoRoutes from './routes/estadoRoutes.js';
 import cidadeRoutes from './routes/cidadeRoutes.js';
 import bairroRoutes from './routes/bairroRoutes.js';
 import ruaRoutes from './routes/ruaRoutes.js';
+import alunoRoutes from './routes/alunoRoutes.js';
+import loginRoutes from './routes/loginRoutes.js';
 
 
 const PORT = 3000; 
@@ -24,6 +26,8 @@ app.use('/', estadoRoutes);
 app.use('/', cidadeRoutes);
 app.use('/', bairroRoutes);
 app.use('/', ruaRoutes);
+app.use('/', alunoRoutes);
+app.use('/', loginRoutes);
 
 app.listen(PORT, () => {
     //listen é um evento

@@ -60,13 +60,12 @@ model Aluno {
   ra                    Int             @id @default(autoincrement()) @unique
   cpf                   String
   nomeAluno             String
-  courseId              Int
   sobrenomeAluno        String
-  sexoAluno             Int
+  sexoAluno             String
   emailAluno            String
-  telefoneAluno         Int
+  telefoneAluno         String
   numeroRua             String
-  complementoMoradia    String
+  complementoMoradia    String?
   cep                   String
   estado                Estado          @relation(fields: [idEstado], references: [idEstado])
   idEstado              Int
@@ -117,8 +116,8 @@ model Matricula{
 
 model Boletim{
   idBoletim             Int             @id @default(autoincrement()) @unique
-  aluno                 Aluno           @relation(fields: [ra], references: [ra])
-  ra                    Int
+  aluno                 Aluno?           @relation(fields: [ra], references: [ra])
+  ra                    Int?
   boletimDisciplinas    BoletimDisciplinas []
 }
 
@@ -132,8 +131,8 @@ model BoletimDisciplinas{
 
 model Historico{
   idHistorico           Int           @id @default(autoincrement()) @unique
-  aluno                 Aluno           @relation(fields: [ra], references: [ra])
-  ra                    Int
+  aluno                 Aluno?           @relation(fields: [ra], references: [ra])
+  ra                    Int?
   historicoDisciplinas  HistoricoDisciplinas []
 }
 
