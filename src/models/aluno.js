@@ -27,7 +27,7 @@ export
         },
     });
 
-    const boletim = await prisma.boletim.create();
+    const historico = await prisma.Historico.create();
 
     await prisma.aluno.update({
         where: {
@@ -35,7 +35,7 @@ export
         },
         data: {
             idLogin: login.idLogin,
-            idBoletim: boletim.idBoletim
+            idHistorico: historico.idHistorico
         },
     });
     return aluno;
@@ -61,9 +61,9 @@ export
             usuario: id,
         },
     });
-    await prisma.boletim.delete({
+    await prisma.Historico.delete({
         where:{
-            idBoletim: aluno.idBoletim,
+            idHistorico: aluno.idHistorico,
         }
     })
     return aluno;
