@@ -4,9 +4,7 @@ import { createAlunoM, getAllAlunoM, removeAlunoM} from '../models/aluno.js';
 
 export async function createAluno(req, res) {
     const data = req.body;
-    console.log("hellou 1")
     try {
-        console.log("hellou 2")
         const aluno = await createAlunoM(data);
         res.json(aluno);
     } catch (error) {
@@ -32,6 +30,7 @@ export async function removeAluno(req, res) {
         const aluno = await removeAlunoM(id);
         res.json(aluno);
     } catch (error) {
+        console.log(error);
         res.status(500).json({ error: 'Erro em deletar uma aluno' });
     }
 }

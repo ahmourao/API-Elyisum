@@ -77,10 +77,11 @@ model Aluno {
   idRua                 Int
   curso                 Curso           @relation(fields: [idCurso], references: [idCurso])
   idCurso               Int
-  login                 Login?           @relation(fields: [idLogin], references: [idLogin])
+  login                 Login?          @relation(fields: [idLogin], references: [idLogin])
   idLogin               Int?
   matricula             Matricula []
-  boletim               Boletim []
+  boletim               Boletim?         @relation(fields: [idBoletim], references: [idBoletim])
+  idBoletim             Int?
   historico             Historico []
 }
 
@@ -114,14 +115,13 @@ model Matricula{
   historicoDisciplinas  HistoricoDisciplinas []
 }
 
-model Boletim{
+model Boletim {
   idBoletim             Int             @id @default(autoincrement()) @unique
-  aluno                 Aluno?           @relation(fields: [ra], references: [ra])
-  ra                    Int?
+  aluno                 Aluno []
   boletimDisciplinas    BoletimDisciplinas []
 }
 
-model BoletimDisciplinas{
+model BoletimDisciplinas {
   boletim               Boletim         @relation(fields: [idBoletim], references: [idBoletim])
   idBoletim             Int 
   matricula             Matricula       @relation(fields: [idMatricula], references: [idMatricula])
@@ -129,14 +129,14 @@ model BoletimDisciplinas{
   @@id([idBoletim, idMatricula]) // Define a chave primária composta com as duas colunas
 }
 
-model Historico{
+model Historico {
   idHistorico           Int           @id @default(autoincrement()) @unique
   aluno                 Aluno?           @relation(fields: [ra], references: [ra])
   ra                    Int?
   historicoDisciplinas  HistoricoDisciplinas []
 }
 
-model HistoricoDisciplinas{
+model HistoricoDisciplinas {
   historico             Historico     @relation(fields: [idHistorico], references: [idHistorico])
   idHistorico           Int 
   matricula             Matricula       @relation(fields: [idMatricula], references: [idMatricula])

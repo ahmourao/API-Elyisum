@@ -3,15 +3,6 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
-// export
-//     //Create
-//     async function createLoginM(newPassword, usuario) {
-//     return prisma.Login.create({
-//         usuario: usuario, 
-//         senha: newPassword,
-//     });
-// }
-
 export
     //Listar tudo
     async function getAllLoginsM() {

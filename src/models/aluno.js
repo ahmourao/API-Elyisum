@@ -1,4 +1,3 @@
-
 // aluno.js - Model
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
@@ -27,28 +26,21 @@ export
             senha: newPassword,
         },
     });
+
+    const boletim = await prisma.boletim.create();
+
     await prisma.aluno.update({
         where: {
             ra: aluno.ra,
-        }, 
+        },
         data: {
             idLogin: login.idLogin,
+            idBoletim: boletim.idBoletim
         },
     });
     return aluno;
 }
 
-
-// export
-//     //atualizar só o login
-//     async function updateLoginAlunoM(ra, idlogin) {
-//     return prisma.Aluno.update({
-//         where: {
-//             ra: ra,
-//             idLogin: idlogin,
-//         },
-//     });
-// }
 
 export
     //Listar tudo
@@ -59,9 +51,20 @@ export
 export
     //Excluir um registro
     async function removeAlunoM(id) {
-    return prisma.Aluno.delete({
+    const aluno = await prisma.Aluno.delete({
         where: {
             ra: id,
         },
     });
+    await prisma.Login.delete({
+        where: {
+            usuario: id,
+        },
+    });
+    await prisma.boletim.delete({
+        where:{
+            idBoletim: aluno.idBoletim,
+        }
+    })
+    return aluno;
 }
