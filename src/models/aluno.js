@@ -49,6 +49,7 @@ export
         select:{
             ra: true, 
             nomeAluno: true, 
+            situacao: true, 
             estado:{
                 select:{
                     nomeEstado: true, 
@@ -93,5 +94,33 @@ export
             idHistorico: aluno.idHistorico,
         }
     })
+    return aluno;
+}
+
+export
+    //Trancamento de Matricula
+    async function trancarMatriculaM(id) {
+    const aluno = await prisma.Aluno.update({
+        where: {
+            ra: id,
+        },
+        data: {
+            situacao: "Trancado",
+        }
+    });
+    return aluno;
+}
+
+export
+    //Trancamento de Matricula
+    async function ativarMatriculaM(id) {
+    const aluno = await prisma.Aluno.update({
+        where: {
+            ra: id,
+        },
+        data: {
+            situacao: "Ativo",
+        }
+    });
     return aluno;
 }

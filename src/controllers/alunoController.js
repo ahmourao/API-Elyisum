@@ -1,5 +1,5 @@
 // alunoController.js - Controller
-import { createAlunoM, getAllAlunoM, removeAlunoM} from '../models/aluno.js';
+import { createAlunoM, getAllAlunoM, removeAlunoM, trancarMatriculaM, ativarMatriculaM} from '../models/aluno.js';
 
 
 export async function createAluno(req, res) {
@@ -33,4 +33,26 @@ export async function removeAluno(req, res) {
         console.log(error);
         res.status(500).json({ error: 'Erro em deletar uma aluno' });
     }
+}
+
+export async function trancarMatricula(req, res) {
+    const id = parseInt(req.query.id);
+    try {
+        const aluno = await trancarMatriculaM(id);
+        res.json(aluno);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Erro ao trancar matricula do aluno' });
+    } 
+}
+
+export async function ativarMatricula(req, res) {
+    const id = parseInt(req.query.id);
+    try {
+        const aluno = await ativarMatriculaM(id);
+        res.json(aluno);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Erro ao trancar matricula do aluno' });
+    } 
 }

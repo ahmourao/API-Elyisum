@@ -6,7 +6,17 @@ const prisma = new PrismaClient();
 export
     //Listar tudo
     async function getAllLoginsM() {
-    return prisma.Login.findMany();
+    return prisma.Login.findMany({
+        select: {
+            usuario: true, 
+            senha: true, 
+            aluno: {
+                select:{
+                    nomeAluno: true, 
+                }
+            }
+        }
+    });
 }
 
 export
