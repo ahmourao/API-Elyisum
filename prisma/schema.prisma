@@ -77,7 +77,7 @@ model Aluno {
   idRua                 Int
   curso                 Curso           @relation(fields: [idCurso], references: [idCurso])
   idCurso               Int
-  situacao              String       @default("Ativo")
+  situacao              String          @default("Ativo")
   login                 Login?          @relation(fields: [idLogin], references: [idLogin])
   idLogin               Int?
   matricula             Matricula []
@@ -89,10 +89,11 @@ model Aluno {
 model Disciplina {
   idDisciplina          Int             @id @default(autoincrement()) @unique
   nomeDisciplina        String
-  numeroTurma           String          @default("0")
+  numeroTurma           Int          @default(0)
   cargaHoraria          String          @default("0")
   descricaoCurricular   String   
-  semestre              String
+  semestre              String          
+  periodoSemestral      DateTime        @default(now())
   departamento          Departamento    @relation(fields: [idDepartamento], references: [idDepartamento])
   idDepartamento        Int
   curso                 Curso           @relation(fields: [idCurso],        references: [idCurso])
@@ -106,7 +107,6 @@ model Matricula{
   nota1                 Float           @default(0)
   nota2                 Float           @default(0)
   media                 Float           @default(0)
-  periodoSemestral      DateTime        @default(now())
   situacao              String          @default("Cursando")
   disciplina            Disciplina      @relation(fields: [idDisciplina], references: [idDisciplina])
   idDisciplina          Int

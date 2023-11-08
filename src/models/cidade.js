@@ -1,6 +1,8 @@
 // cidade.js - Model
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
+
+
 export
     //Criar um registro
     async function createCidadeM(data) {

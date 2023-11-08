@@ -20,6 +20,7 @@ export
                     nomeDepartamento: true, 
                 }
             },
+            numeroTurma: true,
             curso:{
                 select: {
                     nomeCurso: true, 

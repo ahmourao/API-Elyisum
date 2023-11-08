@@ -14,6 +14,8 @@ import ruaRoutes from './routes/ruaRoutes.js';
 import alunoRoutes from './routes/alunoRoutes.js';
 import loginRoutes from './routes/loginRoutes.js';
 import historicoRoutes from './routes/historicoRoutes.js';
+import matriculaRoutes from './routes/matriculaRoutes.js';
+import historicoDisciplinasRoutes from './routes/historicoDisciplinasRoutes.js';
 
 
 const PORT = 3000; 
@@ -30,6 +32,8 @@ app.use('/', ruaRoutes);
 app.use('/', alunoRoutes);
 app.use('/', loginRoutes);
 app.use('/', historicoRoutes);
+app.use('/', matriculaRoutes);
+app.use('/', historicoDisciplinasRoutes);
 
 app.listen(PORT, () => {
     //listen é um evento

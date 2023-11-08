@@ -45,7 +45,34 @@ export
 export
     //Listar tudo
     async function getAllAlunoM() {
-    return prisma.Aluno.findMany();
+    return prisma.Aluno.findMany({
+        select:{
+            ra: true, 
+            nomeAluno: true, 
+            estado:{
+                select:{
+                    nomeEstado: true, 
+                },
+            }, 
+            cidade:{
+                select: {
+                    nomeCidade: true,
+                },
+            },
+            curso: {
+                select: {
+                    nomeCurso: true,
+                },
+            },
+            login: {
+                select: {
+                    usuario: true, 
+                    senha: true,
+                },
+            }, 
+            historico: true,
+        }
+    });
 }
 
 export
