@@ -7,6 +7,7 @@ export
     async function createRuaM(data) {
     return prisma.Rua.create({ data });
 }
+
 export
     //Read
     async function getAllRuasM() {

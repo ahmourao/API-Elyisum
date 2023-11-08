@@ -12,6 +12,28 @@ export
             ra: matricula.ra,
         }
     });
+
+    //processo para atualização do número da turma
+    const disciplina = await prisma.disciplina.findUnique({
+        where: {
+            idDisciplina: matricula.idDisciplina,
+        },
+    });
+    
+    let numeroTurma = disciplina.numeroTurma;
+    if(numeroTurma <= 30){
+        numeroTurma = numeroTurma + 1;
+    }
+    await prisma.disciplina.update({
+        where: {
+            idDisciplina: matricula.idDisciplina,
+        },
+        data: {
+            numeroTurma: numeroTurma,
+        },
+    });
+
+    // cria a relação da disciplina no historico
     await prisma.historicoDisciplinas.create({
         data: {
             idMatricula: matricula.idMatricula,
@@ -26,22 +48,34 @@ export
     //Listar tudo
     async function getAllMatriculasM() {
     return prisma.Matricula.findMany({
-        select: {
-            idMatricula: true,
-            disciplina: {
-                select: {
-                    nomeDisciplina: true,
-                },
-            },
-            aluno: {
-                select: {
-                    nomeAluno: true,
-                },
-            },
-            nota1: true,
-            nota2: true,
-            media: true,
-        },
+        // select: {
+        //     idMatricula: true,
+        //     disciplina: {
+        //         select: {
+        //             nomeDisciplina: true,
+        //         },
+        //     },
+        //     aluno: {
+        //         select: {
+        //             nomeAluno: true,
+        //         },
+        //     },
+        //     situacao: true,
+        //     nota1: true,
+        //     nota2: true,
+        //     media: true,
+        // },
+    });
+}
+
+export
+    //Listar tudo BOLETIM
+    async function boletimM(id) {
+    return prisma.Matricula.findMany({
+        where:{
+            ra: id, 
+            situacao: "Cursando",
+        }
     });
 }
 
@@ -55,23 +89,15 @@ export
         },
     });
 
-    if (!matriculaAux) {
-        throw new Error("Matrícula não encontrada");
-    }
-
     const aluno = await prisma.aluno.findUnique({
         where: {
             ra: matriculaAux.ra,
         },
     });
 
-    if (!aluno) {
-        throw new Error("Aluno não encontrado");
-    }
-
     await prisma.historicoDisciplinas.delete({
         where: {
-            idHistorico_idMatricula:{
+            idHistoricoDisciplina:{
                 idMatricula: matriculaAux.idMatricula,
                 idHistorico: aluno.idHistorico,
             },
@@ -83,7 +109,51 @@ export
             idMatricula: id,
         },
     });
-    console.log(matriculaAux.ra)
 
+    return matricula;
+}
+
+export
+    //Update
+    async function updateSituacaoM(id, situacao) {
+    const matricula = await prisma.matricula.update({
+        where:{
+            idMatricula: id,
+        },
+        data: {
+            situacao: situacao,
+        },
+    });
+    return matricula;
+}
+
+// export
+//     //Update
+//     async function updateAllSituacaoM(id, situacao) {
+//     const matricula = await prisma.matricula.updateMany({
+//         data: {
+//             situacao: situacao,
+//         },
+//     });
+//     return matricula;
+// }
+
+export
+    //Update
+    async function updateNotasM(id, nota1, nota2, frequencia) {
+
+    let media = (nota1 + nota2)/2;
+
+    const matricula = await prisma.matricula.update({
+        where:{
+            idMatricula: id,
+        },
+        data: {
+            nota1: nota1, 
+            nota2: nota2, 
+            media: parseFloat(media.toFixed(1)),
+            frequencia: frequencia,
+        },
+    });
     return matricula;
 }

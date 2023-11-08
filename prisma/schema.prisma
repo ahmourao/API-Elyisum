@@ -127,7 +127,7 @@ model HistoricoDisciplinas {
   idHistorico           Int 
   matricula             Matricula       @relation(fields: [idMatricula], references: [idMatricula])
   idMatricula           Int 
-  @@id([idHistorico, idMatricula]) // Define a chave primária composta com as duas colunas
+  @@id(fields: [idHistorico, idMatricula], name: "idHistoricoDisciplina") // Define a chave primária composta com as duas colunas
 }
 
 model Login{
