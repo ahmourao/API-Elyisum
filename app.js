@@ -35,6 +35,11 @@ app.use('/', historicoRoutes);
 app.use('/', matriculaRoutes);
 app.use('/', historicoDisciplinasRoutes);
 
+// define um diretório que contém arquivos estáticos que serão servidos pelo servidor.
+// poderia ser qualquer outro nome, como publico, static, etc.
+// por convenção, usa-se public
+app.use(express.static('public'));
+
 app.listen(PORT, () => {
     //listen é um evento
     console.log(chalk.black.bgBlue("Servidor está escutando!"));
