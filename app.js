@@ -19,18 +19,15 @@ import historicoDisciplinasRoutes from './src/routes/historicoDisciplinasRoutes.
 
 import bodyParser from "body-parser";
 import cors from "cors";
-
+import EventEmitter from "events";
+EventEmitter.defaultMaxListeners = 15; 
 
 const PORT = 3000; 
 const app = express(); //instância do express
 
 // app.use(express.json());
-app.use(cors({
-    origin: 'https://itelysium.squareweb.app', 
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-    optionsSuccessStatus: 200 
-}));
+app.use(cors());
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
