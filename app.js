@@ -25,7 +25,12 @@ const PORT = 3000;
 const app = express(); //instância do express
 
 // app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: 'https://itelysium.squareweb.app', 
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    optionsSuccessStatus: 200 
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
