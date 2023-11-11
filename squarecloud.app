@@ -3,5 +3,5 @@ DESCRIPTION=Projeto de faculdade
 MAIN=app.js
 MEMORY=512
 VERSION=recommended
-SUBDOMAIN=ITElysium
+SUBDOMAIN=itelysium
 AUTORESTART=true
