@@ -4,6 +4,9 @@
   "description": "Construção do servidor do I.T. Elysium",
   "main": "./app.js",
   "type": "module",
+  "engines": {
+    "node": "20.9.0"
+  },  
   "scripts": {
     "start": "node ./app.js"
   },
