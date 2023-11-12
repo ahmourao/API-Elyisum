@@ -8,11 +8,11 @@ export
     async function getAllLoginsM() {
     return prisma.Login.findMany({
         select: {
-            usuario: true, 
-            senha: true, 
+            usuario: true,
+            senha: true,
             aluno: {
-                select:{
-                    nomeAluno: true, 
+                select: {
+                    nomeAluno: true,
                 }
             }
         }
@@ -41,4 +41,14 @@ export
             idLogin: id,
         },
     });
+}
+
+export
+    async function validarLoginM(username, password) {
+    const user = await prisma.Login.findUnique({
+        where: {
+            usuario: username,
+        },
+    });
+    return user;
 }

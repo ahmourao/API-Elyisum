@@ -1,5 +1,6 @@
 // loginController.js - Controller
-import { getAllLoginsM, updateLoginM, removeLoginM} from '../models/login.js';
+import { validationResult } from 'express-validator';
+import { getAllLoginsM, updateLoginM, removeLoginM, validarLoginM } from '../models/login.js';
 
 
 //Listar todos os registros
@@ -35,4 +36,25 @@ export async function removeLogin(req, res) {
         res.status(500).json({ error: 'Erro em deletar um Login' });
     }
 
+}
+
+export async function validarLogin(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    let { username, password } = req.body;
+    username = parseInt(username);
+    try {
+        // Consulte o banco de dados para verificar se o usuário existe
+        const user = await validarLoginM(username, password);
+        if (user && user.senha === password) {
+            return res.json({ authenticated: true });
+        } else {
+            return res.json({ authenticated: false });
+        }
+    } catch (error) {
+        console.error('Erro ao verificar o usuário:', error);
+        return res.status(500).json({ error: 'Erro interno do servidor' });
+    }
 }
