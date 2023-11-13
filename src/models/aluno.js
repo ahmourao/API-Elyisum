@@ -41,6 +41,18 @@ export
     return aluno;
 }
 
+export 
+    async function getOneAlunoM (username){
+        return prisma.aluno.findUnique({
+            where: {
+                ra: username,
+            },
+            select:{
+                nomeAluno: true, 
+                sobrenomeAluno: true,
+            },
+        });
+    }
 
 export
     //Listar tudo

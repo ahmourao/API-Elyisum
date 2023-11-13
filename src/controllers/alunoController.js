@@ -1,5 +1,5 @@
 // alunoController.js - Controller
-import { createAlunoM, getAllAlunoM, removeAlunoM, trancarMatriculaM, ativarMatriculaM} from '../models/aluno.js';
+import { createAlunoM, getAllAlunoM, removeAlunoM, trancarMatriculaM, ativarMatriculaM , getOneAlunoM} from '../models/aluno.js';
 
 
 export async function createAluno(req, res) {
@@ -17,6 +17,17 @@ export async function createAluno(req, res) {
 export async function getAllAlunos(req, res) {
     try {
         const aluno = await getAllAlunoM();
+        res.json(aluno);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao listar todos os alunos' });
+    }
+}
+
+//Listar um registro
+export async function getOneAluno(req, res) { 
+    const id = parseInt(req.query.id);
+    try {
+        const aluno = await getOneAlunoM(id);
         res.json(aluno);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao listar todos os alunos' });
