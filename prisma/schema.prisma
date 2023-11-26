@@ -33,6 +33,7 @@ model Aluno {
   sexoAluno             String
   emailAluno            String
   telefoneAluno         String
+
   numeroRua             String
   complementoMoradia    String?
   cep                   String
@@ -40,6 +41,7 @@ model Aluno {
   nomeCidade            String
   nomeBairro            String
   nomeRua               String
+  
   curso                 Curso           @relation(fields: [idCurso], references: [idCurso])
   idCurso               Int
   situacao              String          @default("Ativo")

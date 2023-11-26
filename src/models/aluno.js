@@ -18,6 +18,7 @@ function generateRandomPassword(length) {
 export
     //Create
     async function createAlunoM(data) {
+
     const aluno = await prisma.Aluno.create({ data });
     const newPassword = generateRandomPassword(5);
     const login = await prisma.Login.create({
@@ -25,6 +26,7 @@ export
             usuario: aluno.ra,
             senha: newPassword,
         },
+
     });
 
     const historico = await prisma.Historico.create();
@@ -57,29 +59,13 @@ export
                         senha: true,
                     },
                 },
-                estado:{
-                    select:{
-                        siglaEstado: true, 
-                    },
-                }, 
-                cidade:{
-                    select: {
-                        nomeCidade: true,
-                    },
-                }, 
-                bairro:{
-                    select:{
-                        nomeBairro: true,
-                    }
-                },
-                rua:{
-                    select:{
-                        nomeRua: true,
-                    }
-                },
                 numeroRua: true, 
                 complementoMoradia: true, 
                 cep: true, 
+                siglaEstado: true, 
+                nomeCidade: true,
+                nomeBairro: true,
+                nomeRua: true, 
             },
         });
     }
@@ -92,16 +78,8 @@ export
             ra: true, 
             nomeAluno: true, 
             situacao: true, 
-            estado:{
-                select:{
-                    nomeEstado: true, 
-                },
-            }, 
-            cidade:{
-                select: {
-                    nomeCidade: true,
-                },
-            },
+            siglaEstado: true, 
+            nomeCidade: true,
             curso: {
                 select: {
                     nomeCurso: true,
@@ -177,18 +155,13 @@ export
         data: {
             telefoneAluno: telefoneAluno, 
             cep: cepAluno,
-            rua: {
-                update:{
-                    nomeRua: ruaAluno,
-                }
-            },
             numeroRua: numeroAluno,
-            bairro:{
-                update: {
-                    nomeBairro: bairroAluno
-                }
-            }
-        }
+            complementoMoradia: complementoAluno,
+            siglaEstado: siglaAluno,
+            nomeCidade: cidadeAluno,
+            nomeBairro: bairroAluno,
+            nomeRua: ruaAluno,
+        },
     });
     return aluno;
 }
