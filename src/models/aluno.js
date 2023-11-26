@@ -50,6 +50,34 @@ export
             select:{
                 nomeAluno: true, 
                 sobrenomeAluno: true,
+                sexoAluno: true, 
+                telefoneAluno: true,
+                login:{
+                    select:{
+                        senha: true,
+                    },
+                },
+                estado:{
+                    select:{
+                        nomeEstado: true, 
+                    },
+                }, 
+                cidade:{
+                    select: {
+                        nomeCidade: true,
+                    },
+                }, 
+                bairro:{
+                    select:{
+                        nomeBairro: true,
+                    }
+                },
+                rua:{
+                    nomeRua: true,
+                },
+                numeroRua: true, 
+                complementoMoradia: true, 
+                cep: true, 
             },
         });
     }
