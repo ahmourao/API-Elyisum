@@ -30,7 +30,7 @@ export async function getOneAluno(req, res) {
         const aluno = await getOneAlunoM(id);
         res.json(aluno);
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao listar todos os alunos' });
+        res.status(500).json({ error: 'Erro em listar um aluno' });
     }
 }
 

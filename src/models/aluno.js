@@ -73,7 +73,9 @@ export
                     }
                 },
                 rua:{
-                    nomeRua: true,
+                    select:{
+                        nomeRua: true,
+                    }
                 },
                 numeroRua: true, 
                 complementoMoradia: true, 
