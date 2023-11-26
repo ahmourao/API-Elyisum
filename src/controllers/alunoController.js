@@ -1,5 +1,5 @@
 // alunoController.js - Controller
-import { createAlunoM, getAllAlunoM, removeAlunoM, trancarMatriculaM, ativarMatriculaM , getOneAlunoM} from '../models/aluno.js';
+import { createAlunoM, getAllAlunoM, removeAlunoM, trancarMatriculaM, ativarMatriculaM , getOneAlunoM, alterarCadastroM} from '../models/aluno.js';
 
 
 export async function createAluno(req, res) {
@@ -69,6 +69,12 @@ export async function ativarMatricula(req, res) {
 }
 
 export async function alterarCadastro(req, res){
-    const {telefoneAluno, cepAluno, ruaAluno, numeroAluno, bairroAluno, complementoAluno, cidadeAluno, siglaAluno} = req.body;
-
+    const {ra, telefoneAluno, cepAluno, ruaAluno, numeroAluno, bairroAluno, complementoAluno, cidadeAluno, siglaAluno} = req.body;
+    try{
+        const aluno = await alterarCadastroM(ra, telefoneAluno, cepAluno, ruaAluno, numeroAluno, bairroAluno, complementoAluno, cidadeAluno, siglaAluno);
+        res.json(aluno);
+    } catch(error){
+        console.log(error);
+        res.status(500).json({ error: 'Erro ao alterar o cadastro do aluno' });
+    }
 }

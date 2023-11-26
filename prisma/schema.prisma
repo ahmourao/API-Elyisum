@@ -9,37 +9,6 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-model Rua{
-  idRua                 Int           @id @default(autoincrement()) @unique
-  nomeRua               String
-  aluno                 Aluno []
-}
-
-model Estado{
-  idEstado              Int           @id @default(autoincrement()) @unique
-  nomeEstado            String
-  siglaEstado           String
-  aluno                 Aluno []
-  cidade                Cidade []
-}
-
-model Cidade{
-  idCidade              Int           @id @default(autoincrement()) @unique
-  nomeCidade            String
-  estado                Estado?        @relation(fields: [idEstado], references: [idEstado])
-  idEstado              Int?
-  aluno                 Aluno []
-  bairro                Bairro []
-}
-
-model Bairro{
-  idBairro              Int           @id @default(autoincrement()) @unique
-  nomeBairro            String
-  cidade                Cidade?        @relation(fields: [idCidade], references: [idCidade])
-  idCidade              Int?
-  aluno                 Aluno []
-}
-
 
 model Departamento {
   idDepartamento        Int             @id @default(autoincrement()) @unique
@@ -67,14 +36,10 @@ model Aluno {
   numeroRua             String
   complementoMoradia    String?
   cep                   String
-  estado                Estado          @relation(fields: [idEstado], references: [idEstado])
-  idEstado              Int
-  cidade                Cidade          @relation(fields: [idCidade], references: [idCidade])
-  idCidade              Int
-  bairro                Bairro          @relation(fields: [idBairro], references: [idBairro])
-  idBairro              Int
-  rua                   Rua             @relation(fields: [idRua],    references: [idRua])
-  idRua                 Int
+  siglaEstado           String
+  nomeCidade            String
+  nomeBairro            String
+  nomeRua               String
   curso                 Curso           @relation(fields: [idCurso], references: [idCurso])
   idCurso               Int
   situacao              String          @default("Ativo")

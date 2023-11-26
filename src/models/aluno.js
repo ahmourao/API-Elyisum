@@ -166,3 +166,30 @@ export
     });
     return aluno;
 }
+
+export
+    //Trancamento de Matricula
+    async function alterarCadastroM(id, telefoneAluno, cepAluno, ruaAluno, numeroAluno, bairroAluno, complementoAluno, cidadeAluno, siglaAluno) {
+    const aluno = await prisma.Aluno.update({
+        where: {
+            ra: id,
+        },
+        data: {
+            telefoneAluno: telefoneAluno, 
+            cep: cepAluno,
+            rua: {
+                update:{
+                    nomeRua: ruaAluno,
+                }
+            },
+            numeroRua: numeroAluno,
+            bairro:{
+                update: {
+                    nomeBairro: bairroAluno
+                }
+            }
+        }
+    });
+    return aluno;
+}
+
