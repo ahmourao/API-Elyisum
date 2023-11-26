@@ -59,7 +59,7 @@ export
                 },
                 estado:{
                     select:{
-                        nomeEstado: true, 
+                        siglaEstado: true, 
                     },
                 }, 
                 cidade:{

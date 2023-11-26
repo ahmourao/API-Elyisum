@@ -67,3 +67,8 @@ export async function ativarMatricula(req, res) {
         res.status(500).json({ error: 'Erro ao trancar matricula do aluno' });
     } 
 }
+
+export async function alterarCadastro(req, res){
+    const {telefoneAluno, cepAluno, ruaAluno, numeroAluno, bairroAluno, complementoAluno, cidadeAluno, siglaAluno} = req.body;
+
+}
