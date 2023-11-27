@@ -19,9 +19,9 @@ export
             idDisciplina: matricula.idDisciplina,
         },
     });
-    
+
     let numeroTurma = disciplina.numeroTurma;
-    if(numeroTurma <= 30){
+    if (numeroTurma <= 30) {
         numeroTurma = numeroTurma + 1;
     }
     await prisma.disciplina.update({
@@ -71,12 +71,34 @@ export
 export
     //Listar tudo BOLETIM
     async function boletimM(id) {
-    return prisma.Matricula.findMany({
-        where:{
-            ra: id, 
+    const aluno = await prisma.aluno.findUnique({
+        where: {
+            ra: id,
+        },
+    });
+    const idHistorico = aluno.idHistorico;
+    let relacao = await prisma.historicoDisciplinas.findMany({
+        where: {
+            idHistorico: idHistorico,
+        },
+    });
+    const relacaoDeMatriculas = relacao.map(registro => registro.idMatricula);
+    const relacaoDeDisciplinas = await prisma.matricula.findMany({
+        where: {
+            idMatricula: {
+                in: relacaoDeMatriculas,
+            }, 
             situacao: "Cursando",
+        },
+        include: {
+            disciplina: {
+                select: {
+                    nomeDisciplina: true,
+                }
+            }
         }
     });
+    return relacaoDeDisciplinas;
 }
 
 export
@@ -97,7 +119,7 @@ export
 
     await prisma.historicoDisciplinas.delete({
         where: {
-            idHistoricoDisciplina:{
+            idHistoricoDisciplina: {
                 idMatricula: matriculaAux.idMatricula,
                 idHistorico: aluno.idHistorico,
             },
@@ -117,7 +139,7 @@ export
     //Update
     async function updateSituacaoM(id, situacao) {
     const matricula = await prisma.matricula.update({
-        where:{
+        where: {
             idMatricula: id,
         },
         data: {
@@ -142,15 +164,15 @@ export
     //Update
     async function updateNotasM(id, nota1, nota2, frequencia) {
 
-    let media = (nota1 + nota2)/2;
+    let media = (nota1 + nota2) / 2;
 
     const matricula = await prisma.matricula.update({
-        where:{
+        where: {
             idMatricula: id,
         },
         data: {
-            nota1: nota1, 
-            nota2: nota2, 
+            nota1: nota1,
+            nota2: nota2,
             media: parseFloat(media.toFixed(1)),
             frequencia: frequencia,
         },
