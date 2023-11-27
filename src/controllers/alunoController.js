@@ -69,7 +69,8 @@ export async function ativarMatricula(req, res) {
 }
 
 export async function alterarCadastro(req, res){
-    const {ra, telefoneAluno, cepAluno, ruaAluno, numeroAluno, bairroAluno, complementoAluno, cidadeAluno, siglaAluno} = req.body;
+    let {ra, telefoneAluno, cepAluno, ruaAluno, numeroAluno, bairroAluno, complementoAluno, cidadeAluno, siglaAluno} = req.body;
+    ra = parseInt(ra)
     try{
         const aluno = await alterarCadastroM(ra, telefoneAluno, cepAluno, ruaAluno, numeroAluno, bairroAluno, complementoAluno, cidadeAluno, siglaAluno);
         res.json(aluno);
