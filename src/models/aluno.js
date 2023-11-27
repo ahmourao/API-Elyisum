@@ -67,6 +67,9 @@ export
                 nomeCidade: true,
                 nomeBairro: true,
                 nomeRua: true, 
+                idCurso: true, 
+                idHistorico: true,
+                situacao: true,
             },
         });
     }
