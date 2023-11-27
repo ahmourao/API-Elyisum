@@ -50,6 +50,7 @@ export
                 ra: username,
             },
             select:{
+                ra: true,
                 nomeAluno: true, 
                 sobrenomeAluno: true,
                 sexoAluno: true, 
@@ -148,6 +149,7 @@ export
 export
     //Trancamento de Matricula
     async function alterarCadastroM(id, telefoneAluno, cepAluno, ruaAluno, numeroAluno, bairroAluno, complementoAluno, cidadeAluno, siglaAluno) {
+        
     const aluno = await prisma.Aluno.update({
         where: {
             ra: id,
