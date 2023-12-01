@@ -20,7 +20,7 @@ Certifique-se de ter os seguintes requisitos antes de iniciar o desenvolvimento:
 
 ## Instalação e Execução:
 <pre>
-    ``` javascript
+    ```
     //Instalar as dependências:
     npm install
     //para usar o prisma:
