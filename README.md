@@ -1,121 +1,54 @@
-# API Elyisum
+# Servidor do app do I. T. Elysium
 
-Então vamos lá, vou tentar ao máximo explicar a arquitetura de API que eu uso. Não que seja a melhor, nem que seja a mais recomendada, mas é o que eu aprendi com o Laravel.
+Bem-vindo ao repositório oficial do servidor do aplicativo mobile da faculdade! Este repositório contém o código-fonte e recursos relacionados.
 
-## Começando
+## Atenção!!!
+Para conseguir acesar o meu banco que está hospedado no site supaBase precisará da minha senha. 
 
-Todos os meus projetos de API seguem o padrão _Model-Route-Controller_ (MRC).
+## Atenção 2
+Esse é o back end da aplicação, o front end está neste link: [github](https://github.com/ahmourao/API-Elyisum](https://github.com/ahmourao/frontEndElysium)).
 
-**Model**: Contém uma representação do banco de dados. Como costumo trabalhar com a ORM Prisma, as models são feitas dentro do arquivo `prisma/schema.prisma`
+## Sobre o servidor
+Esse servidor foi projetado na arquitetura MCR: Models, Controllers e Routes.
 
-**Route**: Contém as rotas de acesso HTTP da aplicação. É aqui onde defino os _endpoints_ onde são feitas as requisições. Normalmente, em 99% dos casos elas redirecionam para um método em um controller. Mantenho elas dentro da pasta `routes/api.js` (roubei esse padrão do Laravel).
+## Sobre o desenvolvimento
+Esse aplicativo surgiu de um trabalho da faculdade na qual a proposta era trabalhar as linguagens: HTML, CSS e JS (JQuery Mobile) e criar um aplicativo mobile usando a ferramenta Cordova. Ele foi projetado para sistemas Android.
 
-**Controller**: Possuem toda a lógica da aplicação. Usam orientação a objetos e assíncronismo. Cada tabela do banco de dados possui um controller, nem sempre isso é aplicável, mas na maioria dos casos sim. Os métodos padrão de controller que uso são os do [Laravel](https://laravel.com/docs/10.x/controllers#actions-handled-by-resource-controller). Os controllers acessam as models e redirecionam respostas para as rotas.
+## Requisitos do Sistema
+Certifique-se de ter os seguintes requisitos antes de iniciar o desenvolvimento:
++ node
 
-### Explicando o arquivo app.js (ou index.js)
+## Instalação e Execução:
+<pre>
+    ``` javascript
+    //Instalar as dependências:
+    npm install
+    //para usar o prisma:
+    npx prisma generate dev
+    //executar o aplicativo
+    npm start
+    ```
+</pre>
 
-Esse é o entry point da aplicação, normalmente fica fora de qualquer pasta. Ele indica para o servidor o que é usado e como é usado cada módulo instalado, basicamente um arquivo de configurações.
+## Sobre a documentação do projeto: 
+Aqui você encontra:
++ História
++ Requisitos funcionais
++ Requisitos não funcionais
++ Modelagem do banco
++ Casos de uso
++ Design
++ Wireframe
++ Teste de usabilidade.
+PDF: [pdf](https://drive.google.com/file/d/1zkGKrio5Tw3BlaOhEUHQ__ccNgr0yKgS/view?usp=drive_link)
+Power Point: [power point](https://docs.google.com/presentation/d/1hewS-pqGZ0eScDI8zxlD4g4kHldUbq2c/edit?usp=drive_link&ouid=101156124608605422335&rtpof=true&sd=true)
 
-Então, items básicos que ele contém:
-
-* Importação do Express e instância da classe
-
-<small>
-    usando o commonjs
-</small>
-
-```
-const express = require('express')
-const app = express()
-```
-
-<hr>
-
-<small>
-    usando o modules
-</small>
-
-```
-import express from "express"
-const app = express()
-```
-
-* Bibliotecas essenciais:
-
-```
-const dotenv = require('dotenv')
-const bodyParser = require('body-parser')
-const cors = require('cors')
-```
-
-### [Dotenv:](https://www.npmjs.com/package/dotenv)
-Permite que você trabalhe com arquivos de variáveis de ambiente
-
-### [BodyParser:](https://www.npmjs.com/package/body-parser)
-Permite que você converta dados recebidos através de requisições HTTP do tipo POST e transforme-os em JSON, para trabalhar com estes dados
-
-### [CORS:](https://www.npmjs.com/package/cors)
-É uma política de segurança de navegadores. Basicamente uso ele para permitir o acesso de outros dispositivos à minha API.
-
-<hr>
-
-## Configurações desses pacotes
-
-Tudo no entry point, ok?
-
-```
-dotenv.config();
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(cors())
-```
-
-Por fim, o entry point também deve abrir o servidor
-
-```
-app.listen(PORT, () => {
-    console.log(chalk.black.bgBlue("Servidor está escutando!"));
-});
-```
-
-<hr>
-
-# Rotas
-
-Lá em cima dei uma explicada, mas basicamente na pasta `routes/` você terá seu arquivo (ou arquivos) das rotas.
-
-Eu trabalho com um só, porque roubei essa ideia do Laravel, mas você pode fazer do jeito que está fazendo.
-
-Lá no entry point você deve dizer que seu app usa as rotas. Do jeito que está aqui tá certo.
-
-# Controllers
-
-Do jeito que você fez está certo. Eu uso classes, aí nas rotas eu importo as classes e direciono para os métodos. Não precisa mudar, é coisa de filosofia e vai funcionar de ambas as formas.
-
-# Arquivos estáticos
-
-Acho que essa é a parte que você está com dificuldades.
-
-Os arquivos estáticos são imagens, css, js etc.
-
-Lá no seu entry point, você vai colocar a linha
-
-```
-app.use(express.static('public'))
-```
-
-Isso vai dizer ao seu servidor que todos os arquivos estáticos estão dentro de uma pasta public. Você ainda não tem ela.
-
-Ah, pode ser qualquer nome lá, ok? É que por convenção use-se _public_.
-
-Dentro dessa pasta, eu criei outras pastas, para js, css e images. Você pode apagar depois as que não vão ser usadas.
-
-Agora digamos que um usuário criou a conta e por padrão você tem uma imagem `profile.png` que é atribuída ao usuário.
-
-Você precisa retornar a url dessa imagem ao front-end, para ser inserido no atributo `src` da imagem de perfil do usuário.
-
-Então, você devolverá essa url: `https://www.blabla.squareweb.app/images/profile.png`
-
-### O que isso significa?
-
-Significa que você configurou seu servidor para que ele use a pasta `public` como padrão para armazenar arquivos estáticos. então, tudo que estiver dentro da pasta public pode ser acessado. 
+## Linguagens e conceitos
++ Requisições API resful, com envio e resposta no tipo JSON
++ ORM(Object-Relational Mapping)
++ Node
++ Express
++ Prisma
++ JavaScript
++ Cors (para ele aceitar requisição de qualquer lugar)
++ Documentação do aplicativo
