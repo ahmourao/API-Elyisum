@@ -1,12 +1,14 @@
 # Servidor do app do I. T. Elysium
 
-Bem-vindo ao repositório oficial do servidor do aplicativo mobile da faculdade! Este repositório contém o código-fonte e recursos relacionados.
+Bem-vindo ao repositório do servidor do aplicativo mobile da faculdade Elysium! Este repositório contém o código-fonte e recursos relacionados.
+Você pode visualizar o aplicativo clicando nesse link [video](https://drive.google.com/file/d/1Ey2VARNhcUH-bT6EFLvqhEdkQJNoCmTv/view?usp=sharing)
 
 ## Atenção!!!
 Para conseguir acesar o meu banco que está hospedado no site supaBase precisará da minha senha. 
 
 ## Atenção 2
 Esse é o back end da aplicação, o front end está neste link: [github](https://github.com/ahmourao/API-Elyisum](https://github.com/ahmourao/frontEndElysium)).
+Você pode visualizar o aplicativo clicando nesse link [video](https://drive.google.com/file/d/1Ey2VARNhcUH-bT6EFLvqhEdkQJNoCmTv/view?usp=sharing)
 
 ## Sobre o servidor
 Esse servidor foi projetado na arquitetura MCR: Models, Controllers e Routes.
